@@ -1,0 +1,10 @@
+{
+    "stryker-config":
+    {
+        "reporters": [ "html" ],
+        "report-file-name":     "mutation-report",
+        "ignore-mutations":      ["string"],
+        "ignore-methods":       ["*Log","*Logger.*","Console.Write*","*Exception.ctor"],
+	"thresholds": { "high": 80, "low": 80, "break": 80 }
+    }
+}
