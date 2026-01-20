@@ -36,6 +36,20 @@ namespace RestApi.Unit.Test
         }
 
         [Test]
+        public void GetUsers_Exception()
+        {
+            // Arrange
+            _mockService.Setup(s => s.GetAllUsers()).Throws(new Exception("unknown error"));
+
+            // Act
+            var result = _controller.GetUsers();
+
+            // Assert
+            var resultInner = result.Result as ObjectResult;
+            Assert.That(resultInner!.StatusCode, Is.EqualTo(500));
+        }
+
+        [Test]
         public void GetUser_UserExists_ReturnsOkResult()
         {
             // Arrange
