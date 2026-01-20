@@ -11,12 +11,12 @@ jobs:
       group: MullRunnerGroup
       labels: self-hosted
 
-    steps:
+    steps:      
+    - uses: actions/checkout@v4
+
     - name: Install stryker
       working-directory: ${{github.workspace}}
       run: dotnet tool restore
-      
-    - uses: actions/checkout@v4
 
     - name: Build/run unit/mutation tests
       working-directory: ${{github.workspace}}
