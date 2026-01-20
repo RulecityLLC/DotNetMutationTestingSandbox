@@ -1,0 +1,30 @@
+name: Pull request gate using dotnet/stryker
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  pr_gate:
+    runs-on:
+      # adjust this for your specific environment
+      group: MullRunnerGroup
+      labels: self-hosted
+
+    steps:
+    - name: Install stryker
+      working-directory: ${{github.workspace}}
+      run: dotnet tool restore
+      
+    - uses: actions/checkout@v4
+
+    - name: Build/run unit/mutation tests
+      working-directory: ${{github.workspace}}
+      run: dotnet stryker
+
+    - name: Archive mutation testing results
+      uses: actions/upload-artifact@v4
+      if: always() # Runs even if build fails
+      with:
+        name: MutationTestingReport
+        path: StrykerOutput/
