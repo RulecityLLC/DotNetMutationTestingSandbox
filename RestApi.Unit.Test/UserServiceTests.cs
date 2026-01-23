@@ -95,5 +95,21 @@ namespace RestApi.Unit.Test
             Assert.That(result.Name, Is.EqualTo("Charlie"));
             _mockRepository.Verify(r => r.Create(user.Name, user.Email), Times.Once);
         }
+
+        [Test]
+        public void GetUserByName_UserExists()
+        {
+            // Arrange
+            var user = new User { Id = 1, Name = "Alice", Email = "alice@example.com" };
+            var users = new List<User>
+            {
+                user
+            };
+            _mockRepository.Setup(r => r.GetAll()).Returns(users);
+
+            // Act
+            User result = _service.GetUser(user.Name);
+        }
+
     }
 }

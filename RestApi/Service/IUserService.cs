@@ -3,4 +3,6 @@
     IEnumerable<User> GetAllUsers();
     User GetUser(int id);
     User CreateUser(string name, string email);
+
+    User GetUser(string name);
 }
