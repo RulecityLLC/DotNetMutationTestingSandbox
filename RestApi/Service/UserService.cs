@@ -42,4 +42,15 @@ public class UserService : IUserService
         // Delegate to repository
         return _repository.Create(name, email);
     }
+
+    public User GetUser(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new ArgumentException("Name is required");
+        }
+        IEnumerable<User> all = _repository.GetAll();
+        User user = all.First(m => m.Name == name);
+        return user;
+    }
 }
