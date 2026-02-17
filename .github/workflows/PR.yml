@@ -14,6 +14,14 @@ jobs:
     steps:      
     - uses: actions/checkout@v4
 
+    - name: Install node
+      working-directory: ${{ runner.temp }}
+      run: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+        source ~/.bashrc
+        nvm install --lts
+        npm install -g typescript
+
     - name: Install stryker
       working-directory: ${{github.workspace}}
       run: dotnet tool restore
